@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: large-image-deployment
+  labels:
+    app: large-image-app
+spec:
+  replicas: 3  # Number of replicas
+  selector:
+    matchLabels:
+      app: large-image-app
+  template:
+    metadata:
+      labels:
+        app: large-image-app
+    spec:
+      containers:
+      - name: large-image-container
+        image: manishmca84/loan_app_demo1:v1  # Replace with your image name and tag
+        imagePullPolicy: IfNotPresent  # Use 'Always' if you want to pull the image every time
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: large-image-service
+spec:
+  type: NodePort
+  selector:
+    app: large-image-app
+  ports:
+  - protocol: TCP
+    port: 80        # Target port on the container
+    targetPort: 80  # Port the container listens on
+    nodePort: 30007 # Port exposed on the node
