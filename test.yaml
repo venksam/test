@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: large-image-container
-        image: manishmca84/loan_app_demo1:v1  # Replace with your image name and tag
+        image: manishmca84/loan_apps_demo_slim:v1  # Replace with your image name and tag
         imagePullPolicy: IfNotPresent  # Use 'Always' if you want to pull the image every time
         ports:
         - containerPort: 80
